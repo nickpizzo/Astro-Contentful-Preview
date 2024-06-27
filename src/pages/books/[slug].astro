@@ -4,6 +4,9 @@ import Layout from "../../layouts/Layout.astro";
 import { documentToHtmlString } from "@contentful/rich-text-html-renderer";
 import Header from "../../components/Header.astro";
 
+// Disable pre-rendering
+export const prerender = false;
+
 const { slug } = Astro.params;
 let book;
 

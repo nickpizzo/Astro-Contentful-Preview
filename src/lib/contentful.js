@@ -1,5 +1,10 @@
 const SPACE = import.meta.env.CONTENTFUL_SPACE_ID
 const TOKEN = import.meta.env.CONTENTFUL_DELIVERY_TOKEN
+const PREVIEW_TOKEN = import.meta.env.CONTENTFUL_PREVIEW_TOKEN
+const IS_PREVIEW = import.meta.env.IS_PREVIEW
+
+const finalToken = IS_PREVIEW === 'true' ? PREVIEW_TOKEN : TOKEN;
+const isPreview = IS_PREVIEW === 'true' ? true : false;
 
 async function apiCall(query, variables) {
   const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
@@ -7,7 +12,7 @@ async function apiCall(query, variables) {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      Authorization: `Bearer ${TOKEN}`,
+      Authorization: `Bearer ${finalToken}`,
     },
     body: JSON.stringify({ query, variables }),
   }
@@ -18,7 +23,7 @@ async function getAllBooks() {
 
   const query = `
     {
-        bookReferencePageCollection {
+        bookReferencePageCollection(preview: ${isPreview}) {
           items {
             sys {
                 id
@@ -41,7 +46,7 @@ async function getAllBooks() {
 async function getSingleBook(id) {
   const query = `
     query ($id: String!) {
-        bookReferencePage(id: $id) {
+        bookReferencePage(id: $id, preview: ${isPreview}) {
           title
           coverImage {
             url
@@ -69,7 +74,7 @@ async function getSingleBook(id) {
 async function getAuthor(id) {
   const query = `
     query ($id: String!) {
-      bookAuthor(id:$id) {
+      bookAuthor(id:$id, preview: ${isPreview}) {
         name
         avatar {
           url
