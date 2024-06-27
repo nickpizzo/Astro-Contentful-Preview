@@ -19,6 +19,7 @@ async function apiCall(query, variables) {
     },
     body: JSON.stringify({ query, variables }),
   }
+  console.log(options);
   return await fetch(fetchUrl, options)
 }
 
@@ -104,4 +105,4 @@ async function getAuthor(id) {
   return await json.data.bookAuthor
 }
 
-export const client = { getAllBooks, getSingleBook, getAuthor }
+export const client = { getAllBooks, getSingleBook, getAuthor, apiCall }
