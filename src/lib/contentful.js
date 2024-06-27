@@ -6,6 +6,9 @@ const IS_PREVIEW = import.meta.env.IS_PREVIEW
 const finalToken = IS_PREVIEW === 'true' ? PREVIEW_TOKEN : TOKEN;
 const isPreview = IS_PREVIEW === 'true' ? true : false;
 
+console.log(finalToken);
+console.log(isPreview);
+
 async function apiCall(query, variables) {
   const fetchUrl = `https://graphql.contentful.com/content/v1/spaces/${SPACE}/environments/master`;
   const options = {
