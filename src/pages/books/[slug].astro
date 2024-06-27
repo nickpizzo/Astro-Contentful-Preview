@@ -42,6 +42,9 @@ try {
           set:html={documentToHtmlString(book.description.json)}
           class="leading-loose text-slate-200 text-justify"
         />
+        <article class="leading-loose text-slate-200 text-justify">
+          {import.meta.env.IS_PREVIEW}
+        </article>
       </div>
     </div>
   </section>
